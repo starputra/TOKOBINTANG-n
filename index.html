@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bintang Topup</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0f2218;
+color:white;
+min-height:100vh;
+}
+
+.hidden{display:none;}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+background:#143524;
+border-bottom:1px solid #2faa53;
+}
+
+.logo{
+font-size:1.3rem;
+font-weight:bold;
+color:#7CFC98;
+}
+
+.profile-btn{
+display:flex;
+align-items:center;
+gap:10px;
+cursor:pointer;
+}
+
+.profile-btn img{
+width:40px;
+height:40px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #2faa53;
+}
+
+.container{
+padding:20px;
+max-width:1200px;
+margin:auto;
+}
+
+.login-box{
+max-width:400px;
+margin:80px auto;
+background:#173624;
+padding:30px;
+border-radius:20px;
+border:1px solid #2faa53;
+text-align:center;
+}
+
+input{
+width:100%;
+padding:14px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+outline:none;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#2faa53;
+border:none;
+color:white;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#269447;
+}
+
+.game-grid,.product-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+margin-top:20px;
+}
+
+.card{
+background:#173624;
+padding:20px;
+border-radius:15px;
+border:1px solid #2faa53;
+text-align:center;
+cursor:pointer;
+transition:.25s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+background:#215333;
+}
+
+.card img{
+width:70px;
+margin-bottom:10px;
+}
+
+.section-title{
+margin-top:30px;
+margin-bottom:10px;
+color:#7CFC98;
+}
+
+.payment-method{
+background:#173624;
+padding:15px;
+margin:10px 0;
+border-radius:12px;
+border:1px solid #2faa53;
+}
+
+.footer{
+margin-top:40px;
+padding:20px;
+text-align:center;
+background:#143524;
+border-top:1px solid #2faa53;
+color:#aaa;
+}
+
+.profile-modal{
+position:fixed;
+top:70px;
+right:20px;
+background:#173624;
+padding:20px;
+border-radius:15px;
+border:1px solid #2faa53;
+width:260px;
+display:none;
+z-index:10;
+}
+
+.profile-modal img{
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:10px;
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-box" id="loginPage">
+<h1 style="color:#7CFC98;">Welcome To BintangTopup</h1>
+<input type="text" id="username" placeholder="Enter Username">
+<input type="file" id="avatarInput" accept="image/*">
+<button onclick="enterWebsite()">Enter Website</button>
+</div>
+
+<!-- MAIN WEBSITE -->
+<div id="mainWebsite" class="hidden">
+
+<div class="navbar">
+<div class="logo">BintangTopup</div>
+
+<div class="profile-btn" onclick="toggleProfile()">
+<img id="navAvatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+<span id="navUsername">User</span>
+</div>
+</div>
+
+<div class="profile-modal" id="profileModal">
+<img id="profileAvatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+<h3 id="profileName">Username</h3>
+<p id="profileUid">UID: 000000</p>
+</div>
+
+<div class="container">
+
+<h2 class="section-title">🎮 Top Up Games</h2>
+
+<div class="game-grid">
+<div class="card" onclick="showProducts('PUBG UC')">
+<img src="https://cdn-icons-png.flaticon.com/512/732/732212.png">
+PUBG UC
+</div>
+
+<div class="card" onclick="showProducts('Mobile Legends DM')">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
+ML Diamonds
+</div>
+
+<div class="card" onclick="showProducts('Free Fire')">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968872.png">
+Free Fire
+</div>
+
+<div class="card" onclick="showProducts('Valorant VP')">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
+Valorant VP
+</div>
+</div>
+
+<h2 class="section-title" id="productTitle">💎 Product List</h2>
+
+<div class="product-grid" id="productGrid">
+<div class="card">Select Game First</div>
+</div>
+
+<h2 class="section-title">💳 Payment Method</h2>
+
+<div class="payment-method">DANA</div>
+<div class="payment-method">OVO</div>
+<div class="payment-method">GoPay</div>
+<div class="payment-method">QRIS</div>
+<div class="payment-method">Bank Transfer</div>
+
+</div>
+
+<div class="footer">
+© 2026 BintangTopup - Premium Game Topup Website
+</div>
+
+</div>
+
+<script>
+let uid=Math.floor(100000+Math.random()*900000);
+
+function enterWebsite(){
+let username=document.getElementById("username").value;
+let avatarInput=document.getElementById("avatarInput");
+
+if(username.trim()===""){
+alert("Enter Username First");
+return;
+}
+
+document.getElementById("loginPage").classList.add("hidden");
+document.getElementById("mainWebsite").classList.remove("hidden");
+
+document.getElementById("navUsername").innerText=username;
+document.getElementById("profileName").innerText=username;
+document.getElementById("profileUid").innerText="UID: "+uid;
+
+if(avatarInput.files[0]){
+let reader=new FileReader();
+reader.onload=function(e){
+document.getElementById("navAvatar").src=e.target.result;
+document.getElementById("profileAvatar").src=e.target.result;
+}
+reader.readAsDataURL(avatarInput.files[0]);
+}
+}
+
+function toggleProfile(){
+let modal=document.getElementById("profileModal");
+modal.style.display=modal.style.display==="block"?"none":"block";
+}
+
+function showProducts(game){
+document.getElementById("productTitle").innerText="💎 "+game+" Packages";
+
+document.getElementById("productGrid").innerHTML=`
+<div class="card">${game} 60 - Rp10.000</div>
+<div class="card">${game} 120 - Rp20.000</div>
+<div class="card">${game} 300 - Rp50.000</div>
+<div class="card">${game} 600 - Rp95.000</div>
+`;
+}
+</script>
+
+</body>
+</html>
