@@ -1,288 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bintang Topup</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Binzstore Premium</title>
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#0f2218;
-color:white;
-min-height:100vh;
-}
-
-.hidden{display:none;}
-
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 25px;
-background:#143524;
-border-bottom:1px solid #2faa53;
-}
-
-.logo{
-font-size:1.3rem;
-font-weight:bold;
-color:#7CFC98;
-}
-
-.profile-btn{
-display:flex;
-align-items:center;
-gap:10px;
-cursor:pointer;
-}
-
-.profile-btn img{
-width:40px;
-height:40px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid #2faa53;
-}
-
-.container{
-padding:20px;
-max-width:1200px;
-margin:auto;
-}
-
-.login-box{
-max-width:400px;
-margin:80px auto;
-background:#173624;
-padding:30px;
-border-radius:20px;
-border:1px solid #2faa53;
-text-align:center;
-}
-
-input{
-width:100%;
-padding:14px;
-margin:10px 0;
-border:none;
-border-radius:10px;
-outline:none;
-}
-
-button{
-width:100%;
-padding:14px;
-background:#2faa53;
-border:none;
-color:white;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
-}
-
-button:hover{
-background:#269447;
-}
-
-.game-grid,.product-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:15px;
-margin-top:20px;
-}
-
-.card{
-background:#173624;
-padding:20px;
-border-radius:15px;
-border:1px solid #2faa53;
-text-align:center;
-cursor:pointer;
-transition:.25s;
-}
-
-.card:hover{
-transform:translateY(-4px);
-background:#215333;
-}
-
-.card img{
-width:70px;
-margin-bottom:10px;
-}
-
-.section-title{
-margin-top:30px;
-margin-bottom:10px;
-color:#7CFC98;
-}
-
-.payment-method{
-background:#173624;
-padding:15px;
-margin:10px 0;
-border-radius:12px;
-border:1px solid #2faa53;
-}
-
-.footer{
-margin-top:40px;
-padding:20px;
-text-align:center;
-background:#143524;
-border-top:1px solid #2faa53;
-color:#aaa;
-}
-
-.profile-modal{
-position:fixed;
-top:70px;
-right:20px;
-background:#173624;
-padding:20px;
-border-radius:15px;
-border:1px solid #2faa53;
-width:260px;
-display:none;
-z-index:10;
-}
-
-.profile-modal img{
-width:70px;
-height:70px;
-border-radius:50%;
-object-fit:cover;
-margin-bottom:10px;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:linear-gradient(135deg,#08140d,#10271a,#143824);color:#fff}
+.hidden{display:none}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#0e2217;border-bottom:1px solid #2faa53;position:sticky;top:0}
+.logo{font-size:1.4rem;font-weight:bold;color:#7CFC98}
+.container{max-width:1200px;margin:auto;padding:20px}
+.hero{padding:32px;border:1px solid #2faa53;background:linear-gradient(135deg,#173624,#0f2218);border-radius:20px;margin:20px 0;text-align:center}
+.hero h1{color:#7CFC98;font-size:2rem;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.card,.payment,.package{background:#173624;border:1px solid #2faa53;border-radius:14px;padding:18px;cursor:pointer;transition:.25s}
+.card:hover,.payment:hover,.package:hover{transform:translateY(-4px);background:#215333}
+input,select,button{width:100%;padding:14px;border:none;border-radius:10px;margin-top:10px}
+button{background:#2faa53;color:#fff;font-weight:bold;cursor:pointer}
+button:hover{background:#269447}
+.section{margin-top:25px}
+.footer{text-align:center;padding:20px;margin-top:30px;background:#0e2217;border-top:1px solid #2faa53;color:#aaa}
+.login{max-width:420px;margin:60px auto;background:#173624;padding:25px;border-radius:18px;border:1px solid #2faa53}
+.summary{background:#10261a;padding:16px;border-radius:14px;border:1px solid #2faa53;line-height:1.8}
 </style>
 </head>
 <body>
-
-<!-- LOGIN -->
-<div class="login-box" id="loginPage">
-<h1 style="color:#7CFC98;">Welcome To BintangTopup</h1>
-<input type="text" id="username" placeholder="Enter Username">
-<input type="file" id="avatarInput" accept="image/*">
-<button onclick="enterWebsite()">Enter Website</button>
+<div id="loginPage" class="login">
+<h2 style="color:#7CFC98;text-align:center">Welcome to Binzstore</h2>
+<input id="username" placeholder="Masukkan Nama" />
+<input id="avatar" type="file" accept="image/*" />
+<button onclick="enterSite()">Masuk ke Website</button>
 </div>
-
-<!-- MAIN WEBSITE -->
-<div id="mainWebsite" class="hidden">
-
-<div class="navbar">
-<div class="logo">BintangTopup</div>
-
-<div class="profile-btn" onclick="toggleProfile()">
-<img id="navAvatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
-<span id="navUsername">User</span>
-</div>
-</div>
-
-<div class="profile-modal" id="profileModal">
-<img id="profileAvatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
-<h3 id="profileName">Username</h3>
-<p id="profileUid">UID: 000000</p>
-</div>
-
+<div id="mainSite" class="hidden">
+<div class="navbar"><div class="logo">BINZSTORE</div><div id="profileText">User</div></div>
 <div class="container">
-
-<h2 class="section-title">🎮 Top Up Games</h2>
-
-<div class="game-grid">
-<div class="card" onclick="showProducts('PUBG UC')">
-<img src="https://cdn-icons-png.flaticon.com/512/732/732212.png">
-PUBG UC
-</div>
-
-<div class="card" onclick="showProducts('Mobile Legends DM')">
-<img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
-ML Diamonds
-</div>
-
-<div class="card" onclick="showProducts('Free Fire')">
-<img src="https://cdn-icons-png.flaticon.com/512/5968/5968872.png">
-Free Fire
-</div>
-
-<div class="card" onclick="showProducts('Valorant VP')">
-<img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
-Valorant VP
+<div class="hero"><h1>Welcome to Binzstore</h1><p>Fast • Trusted • Premium Game Topup</p></div>
+<div class="section">
+<h2>🎮 Pilih Game</h2>
+<div class="grid" id="gameGrid">
+<div class="card" onclick="selectGame('PUBG UC')">PUBG UC</div>
+<div class="card" onclick="selectGame('Mobile Legends')">Mobile Legends</div>
+<div class="card" onclick="selectGame('Free Fire')">Free Fire</div>
+<div class="card" onclick="selectGame('Valorant')">Valorant</div>
+<div class="card" onclick="selectGame('Genshin Impact')">Genshin Impact</div>
+<div class="card" onclick="selectGame('COD Mobile')">COD Mobile</div>
+<div class="card" onclick="selectGame('Honor of Kings')">Honor of Kings</div>
+<div class="card" onclick="selectGame('Roblox')">Roblox</div>
 </div>
 </div>
-
-<h2 class="section-title" id="productTitle">💎 Product List</h2>
-
-<div class="product-grid" id="productGrid">
-<div class="card">Select Game First</div>
+<div class="section">
+<h2>🆔 Masukkan Data Pemain</h2>
+<input id="playerId" placeholder="Masukkan UID / ID Pemain" />
+<input id="serverId" placeholder="Masukkan Server (Opsional)" />
 </div>
-
-<h2 class="section-title">💳 Payment Method</h2>
-
-<div class="payment-method">DANA</div>
-<div class="payment-method">OVO</div>
-<div class="payment-method">GoPay</div>
-<div class="payment-method">QRIS</div>
-<div class="payment-method">Bank Transfer</div>
-
+<div class="section">
+<h2>💎 Pilih Nominal</h2>
+<div class="grid" id="packageGrid">
+<div class="package" onclick="selectPackage('86 Diamonds',20000)">86 Diamonds - Rp20.000</div>
+<div class="package" onclick="selectPackage('172 Diamonds',40000)">172 Diamonds - Rp40.000</div>
+<div class="package" onclick="selectPackage('257 Diamonds',60000)">257 Diamonds - Rp60.000</div>
+<div class="package" onclick="selectPackage('514 Diamonds',110000)">514 Diamonds - Rp110.000</div>
 </div>
-
-<div class="footer">
-© 2026 BintangTopup - Premium Game Topup Website
 </div>
-
+<div class="section">
+<h2>💳 Metode Pembayaran</h2>
+<div class="grid">
+<div class="payment" onclick="selectPayment('DANA')">DANA</div>
+<div class="payment" onclick="selectPayment('OVO')">OVO</div>
+<div class="payment" onclick="selectPayment('GoPay')">GoPay</div>
+<div class="payment" onclick="selectPayment('QRIS')">QRIS</div>
+<div class="payment" onclick="selectPayment('Bank Transfer')">Bank Transfer</div>
 </div>
-
+</div>
+<div class="section">
+<h2>🧾 Ringkasan Order</h2>
+<div class="summary" id="summaryBox">
+Pilih game, paket, dan pembayaran untuk melihat ringkasan order.
+</div>
+<input id="promoCode" placeholder="Masukkan Promo Code (Opsional)" />
+<button onclick="checkout()">Bayar Sekarang</button>
+</div>
+<div class="section">
+<h2>📜 Riwayat Transaksi</h2>
+<div id="historyList" class="grid"></div>
+</div>
+</div>
+<div class="footer">© 2026 Binzstore Premium Topup</div>
+</div>
 <script>
-let uid=Math.floor(100000+Math.random()*900000);
-
-function enterWebsite(){
-let username=document.getElementById("username").value;
-let avatarInput=document.getElementById("avatarInput");
-
-if(username.trim()===""){
-alert("Enter Username First");
-return;
+let selectedGame=''; let selectedPkg=''; let selectedPrice=0; let selectedPayment='';
+function enterSite(){
+ const name=document.getElementById('username').value.trim();
+ if(!name){alert('Masukkan nama terlebih dahulu');return;}
+ document.getElementById('profileText').innerText=name;
+ document.getElementById('loginPage').classList.add('hidden');
+ document.getElementById('mainSite').classList.remove('hidden');
 }
-
-document.getElementById("loginPage").classList.add("hidden");
-document.getElementById("mainWebsite").classList.remove("hidden");
-
-document.getElementById("navUsername").innerText=username;
-document.getElementById("profileName").innerText=username;
-document.getElementById("profileUid").innerText="UID: "+uid;
-
-if(avatarInput.files[0]){
-let reader=new FileReader();
-reader.onload=function(e){
-document.getElementById("navAvatar").src=e.target.result;
-document.getElementById("profileAvatar").src=e.target.result;
+function selectGame(game){selectedGame=game; updateSummary();}
+function selectPackage(pkg,price){selectedPkg=pkg; selectedPrice=price; updateSummary();}
+function selectPayment(pay){selectedPayment=pay; updateSummary();}
+function updateSummary(){
+ document.getElementById('summaryBox').innerHTML=`Game: ${selectedGame||'-'}<br>UID: ${document.getElementById('playerId').value||'-'}<br>Server: ${document.getElementById('serverId').value||'-'}<br>Paket: ${selectedPkg||'-'}<br>Pembayaran: ${selectedPayment||'-'}<br>Total: Rp${selectedPrice.toLocaleString('id-ID')}`;
 }
-reader.readAsDataURL(avatarInput.files[0]);
+['playerId','serverId'].forEach(id=>document.getElementById(id).addEventListener('input',updateSummary));
+function checkout(){
+ if(!selectedGame||!selectedPkg||!selectedPayment||!document.getElementById('playerId').value.trim()){
+ alert('Lengkapi data order terlebih dahulu'); return; }
+ alert('Checkout berhasil! (Demo UI)');
 }
-}
-
-function toggleProfile(){
-let modal=document.getElementById("profileModal");
-modal.style.display=modal.style.display==="block"?"none":"block";
-}
-
-function showProducts(game){
-document.getElementById("productTitle").innerText="💎 "+game+" Packages";
-
-document.getElementById("productGrid").innerHTML=`
-<div class="card">${game} 60 - Rp10.000</div>
-<div class="card">${game} 120 - Rp20.000</div>
-<div class="card">${game} 300 - Rp50.000</div>
-<div class="card">${game} 600 - Rp95.000</div>
-`;
-}
-</script>
+let orderCounter = 1001;
+let promoCodes = {"BINZ10":10,"WELCOME5":5};function checkout(){ if(!selectedGame||!selectedPkg||!selectedPayment||!document.getElementById('playerId').value.trim()){ alert('Lengkapi data order terlebih dahulu'); return; } const promoInput = document.getElementById('promoCode').value.trim().toUpperCase(); let discount = 0; if(promoInput && promoCodes[promoInput]) discount = promoCodes[promoInput]; const finalPrice = selectedPrice - (selectedPrice * discount / 100); const orderId = 'BZ' + orderCounter++; const historyItem = ${orderId} | ${selectedGame} | ${selectedPkg} | ${selectedPayment} | Rp${finalPrice.toLocaleString('id-ID')}; const historyList = document.getElementById('historyList'); const li = document.createElement('div'); li.className='payment'; li.innerText = historyItem; historyList.prepend(li); alert(Order Berhasil! Order ID: ${orderId} Total Bayar: Rp${finalPrice.toLocaleString('id-ID')}); } </script>
 
 </body>
 </html>
